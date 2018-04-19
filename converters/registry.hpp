@@ -11,10 +11,13 @@
 //template<class T>
 void converter(auto & out,auto & in)
 {
-   int len = length(in);
-   //T out(3);
+   int len = get_length(in);
+   set_length(out,len);
    for(int i = 0; i < len; ++i)
-      set(out,i, get(in,i));
+   {
+        if(!is_iterable(get(in,i)))
+           set(out,i, get(in,i));
+   }
    //return out;
 }
 
