@@ -21,6 +21,12 @@ void converter(int & out, double & in)
 }
 */
 
+/*
+ * TODO: Get converter to work in end cases where length
+ * of vector equals 1 or 0.
+ * vector<vector<int>> x = {{1}}; fails
+ */
+
 void converter(auto & out,auto & in)
 {
     size_t len = get_length(in);
@@ -33,7 +39,9 @@ void converter(auto & out,auto & in)
 
 
 void print(int & in){ cout << in;}
+
 void print(double & in){ cout << in;}
+
 void print(auto & in)
 {
     cout << "[";

@@ -20,10 +20,16 @@ int main()
     cout << "vector<vector<double>> to vector<vector<int>>" << endl << endl;
 
     vector<vector<double>> xx = {{2.2,2.2},{2.2,2.2}};
-    vector<vector<int>> xxd(2);
+    vector<vector<int>> xxd;
     converter(xxd,xx);
     print(xx);
     print(xxd);
+
+    vector<vector<double>> xx2 = {{2.2,2.2},{2.2,2.2},{2.2,2.2}};
+    vector<vector<int>> xxd2;
+    converter(xxd2,xx2);
+    print(xx2);
+    print(xxd2);
 }
 
 
