@@ -9,7 +9,7 @@
 #include <iostream>
 
 using namespace std;
-
+/*
 void converter(double & out, int & in)
 {
     out = in;
@@ -19,6 +19,7 @@ void converter(int & out, double & in)
 {
     out = in;
 }
+*/
 
 void converter(auto & out,auto & in)
 {
@@ -29,6 +30,7 @@ void converter(auto & out,auto & in)
         set(out,i, get(in,i));
     }
 }
+
 
 void print(int & in){ cout << in;}
 void print(double & in){ cout << in;}
