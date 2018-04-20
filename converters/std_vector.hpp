@@ -5,7 +5,7 @@
 
 using namespace std;
 
-auto get(vector<auto> & in, int i)
+auto & get(vector<auto> & in, int i)
 {
     return in.at(i);
 }
@@ -27,4 +27,4 @@ void set_length(vector<auto> & in, size_t new_size)
 
 bool is_iterable(vector<auto> & in){ return true; }
 
-bool is_iterable(int i){ return false;}
+//bool is_iterable(int i){ return false;}
