@@ -10,36 +10,38 @@
 
 using namespace std;
 
-void converter(double & out, int & in){
-
+void converter(double & out, int & in)
+{
     out = in;
-
 }
 
-void converter(int & out, double & in){
-
+void converter(int & out, double & in)
+{
     out = in;
-
 }
 
 void converter(auto & out,auto & in)
 {
-   if(is_iterable(in))
-   {
-      int len = get_length(in);
-      set_length(out,len);
-      cout << "iterable" << endl;
-      for(int i = 0; i < len; ++i)
-      {
-           //cout << "converting " << i << endl;
-           // auto & temp = get(out,i);
-           //converter(temp, get(in,i));
-           set(out,i, get(in,i));
-           //set(out,i, temp);
-           //converter(get(out,i),get(in,i));
-      }
-   }
+    size_t len = get_length(in);
+    set_length(out,len);
+    for(size_t i = 0; i < len; ++i)
+    {
+        set(out,i, get(in,i));
+    }
 }
 
+void print(int & in){ cout << in;}
+void print(double & in){ cout << in;}
+void print(auto & in)
+{
+    cout << "[";
+    for(size_t i = 0; i < get_length(in)-1; ++i)
+    {
+        print(get(in,i));
+        cout << "  ";
+    }
+    print(get(in,get_length(in)-1)) ;
+    cout << "]" << endl;
+}
 
 
