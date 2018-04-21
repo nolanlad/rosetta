@@ -38,14 +38,22 @@ void print(double & in){ cout << in;}
 
 void print(auto & in)
 {
-    cout << "[";
-    for(size_t i = 0; i < get_length(in)-1; ++i)
+    cout << "[ ";
+    for(size_t i = 0; i < get_length(in); ++i)
     {
         print(get(in,i));
         cout << "  ";
     }
-    print(get(in,get_length(in)-1)) ;
     cout << "]" << endl;
 }
 
+ostream & operator << (ostream &out, vector<auto> &c){
+    out << "[ ";
+    for(size_t i = 0; i < get_length(c)-1; ++i)
+    {
+        out << get(c,i) << " , ";
+    }
+    out << get(c,get_length(c)-1) << " ]";
+    return out;
+}
 
