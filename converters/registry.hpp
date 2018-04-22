@@ -5,6 +5,7 @@
  *
  */
 #include "std_vector.hpp"
+#include "boost_ublas_vector.hpp"
 #include "numbers.hpp"
 #include <iostream>
 
@@ -31,6 +32,7 @@ void converter(auto & out,auto & in)
     }
 }
 
+void print(){cout << endl;}
 
 void print(int & in){ cout << in;}
 
@@ -47,6 +49,7 @@ void print(auto & in)
     cout << "]" << endl;
 }
 
+/*
 ostream & operator << (ostream &out, vector<auto> &c){
     out << "[ ";
     for(size_t i = 0; i < get_length(c)-1; ++i)
@@ -56,4 +59,4 @@ ostream & operator << (ostream &out, vector<auto> &c){
     out << get(c,get_length(c)-1) << " ]";
     return out;
 }
-
+*/
