@@ -5,7 +5,15 @@
  *
  */
 #include "std_vector.hpp"
+
+#ifdef WITH_BOOST
 #include "boost_ublas_vector.hpp"
+#endif
+
+#ifdef WITH_PYTHON
+   #include <Python.h>
+#endif
+
 #include "numbers.hpp"
 #include <iostream>
 
