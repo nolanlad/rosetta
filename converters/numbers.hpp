@@ -66,6 +66,19 @@ auto & get(PyObject* & in, size_t i)
         double & out2 = out;
         return out2;
     }
+    if PyInt_Check(in)
+    {
+        double out = double(PyInt_AsLong(in));
+        double & out2 = out;
+        return out2;
+    }
+    else
+    {
+        double out = 6.9;
+        double & out2 = out;
+        return out2;
+    }
+
 }
 
 void set(PyObject* & in, size_t i, int val)
