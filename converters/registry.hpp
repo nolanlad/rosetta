@@ -12,6 +12,7 @@
 
 #ifdef WITH_PYTHON
    #include <Python.h>
+   #include "python.hpp"
 #endif
 
 #include "numbers.hpp"

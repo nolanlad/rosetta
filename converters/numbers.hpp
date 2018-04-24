@@ -55,20 +55,14 @@ bool is_iterable(int & in){ return false; }
  *                    PYTHON SCALAR 
  *                       TYPES
  ******************************************************/
-
+/*
 #ifdef WITH_PYTHON
 
 auto & get(PyObject* & in, size_t i)
 {
-    if PyFloat_Check(in)
+    if(PyNumber_Check(in))
     {
-        double out = PyFloat_AsDouble(in);
-        double & out2 = out;
-        return out2;
-    }
-    if PyInt_Check(in)
-    {
-        double out = double(PyInt_AsLong(in));
+        double out = PyFloat_AsDouble(PyNumber_Float(in));
         double & out2 = out;
         return out2;
     }
@@ -101,3 +95,4 @@ void set_length(PyObject* & in, size_t new_size)
 }
 
 #endif //WITH_PYTHON
+*/
