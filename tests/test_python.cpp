@@ -2,21 +2,21 @@
 #include <converters/registry.hpp>
 
 static PyObject *
-spam_system(PyObject *self, PyObject *args)
+plus_wrap(PyObject *self, PyObject *args)
 {
-    int command;
+    int one,two;
     int sts;
 
-    if (!PyArg_ParseTuple(args, "i", &command))
+    if (!PyArg_ParseTuple(args, "ii", &one, &two))
         return NULL;
     //sts = system(command);
-    sts = command+2;
+    sts = one+two;
     return Py_BuildValue("i", sts);
 }
 
 static PyMethodDef SpamMethods[] = {
-    {"system",  spam_system, METH_VARARGS,
-     "Add 2."},
+    {"plus",  plus_wrap, METH_VARARGS,
+     "Add."},
     {NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
