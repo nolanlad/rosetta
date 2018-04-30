@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <functional>
 
 #define ZERO 0
 
@@ -73,7 +74,9 @@ double test(int n,int m)
     return n*m;
 }
 
-static PyObject *
+
+//static PyObject *
+PyObject *
 plus_wrap(PyObject *self, PyObject *args)
 {
     auto sts = get_return_type(test);
@@ -96,12 +99,98 @@ plus_wrap(PyObject *self, PyObject *args)
     else return NULL;
 }
 
+PyObject *
+plus_wrap(PyObject *self, PyObject *args)
+{
+    auto sts = get_return_type(test);
+    PyObject * temp;
+    if (PyTuple_Size(args)==2)
+    {
+        auto ttt = arg_tuple(test);
 
+        for(int i=0;i<PyTuple_Size(args);++i){
+            temp = PyTuple_GetItem(args,i);
+            converter(runtime_get<ZERO>(ttt,i),temp);
+
+        }
+        sts = call(test,ttt);
+        PyObject * out;
+        converter(out,sts);
+        //return Py_BuildValue("i", sts);
+        return out;
+    }
+    else return NULL;
+}
+
+template <typename F>
+class regis
+{
+    public:
+    F func;
+    regis(F f){ func = f; };
+    //static F func;
+    void reg(F f)
+    {
+        func = f;
+    }
+    double run()
+    {
+        return func(2,2);
+    }
+    PyObject *
+    cpp_wrap(PyObject *self, PyObject *args)
+    {
+        auto sts = get_return_type(func);
+        PyObject * temp;
+        if (PyTuple_Size(args)==2)
+        {
+            auto ttt = arg_tuple(func);
+
+            for(int i=0;i<PyTuple_Size(args);++i){
+                temp = PyTuple_GetItem(args,i);
+                converter(runtime_get<ZERO>(ttt,i),temp);
+
+            }
+            sts = call(func,ttt);
+            PyObject * out;
+            converter(out,sts);
+            //return Py_BuildValue("i", sts);
+            return out;
+        }
+        else return NULL;
+    }
+    
+    
+};
+
+
+template <typename F>
+auto get_regis(F f)
+{
+    regis<F> x = regis<F>(f);
+    //double out = x.run();
+    //x.reg(f);
+    return x;
+}
+
+static PyObject *
+plus_wrap2(PyObject *self, PyObject *args)
+{
+    auto xx = get_regis(test);
+    return xx.cpp_wrap(self,args);
+    //return plus_wrap(self,args);
+}
+
+auto x_x = get_regis(test);
+
+static PyObject * (*this_test2)(PyObject *,PyObject *) = &plus_wrap;
 
 static PyObject *SpamError;
 
 static PyMethodDef SpamMethods[] = {
     {"plus",  plus_wrap, METH_VARARGS,
+     "Add."},
+    {"plus2", plus_wrap2 , METH_VARARGS,
      "Add."},
 //     {"plus2",  cpp_wrapper(test)::wrapper, METH_VARARGS,
 //     "Add."},
