@@ -1,16 +1,28 @@
 #include <Python.h>
 #include <converters/registry.hpp>
+#include <cstdarg>
 
 static PyObject *
 plus_wrap(PyObject *self, PyObject *args)
 {
     int one,two;
     int sts;
-
-    if (!PyArg_ParseTuple(args, "ii", &one, &two))
-        return NULL;
+    va_list temp;
+    //if (!PyArg_ParseTuple(args, "ii", &one, &two))
+    //    return NULL;
     //sts = system(command);
-    sts = one+two;
+    if (PyTuple_Size(args)==2)
+    {
+        PyObject * PyOne = PyTuple_GetItem(args,0);
+        PyObject * PyTwo = PyTuple_GetItem(args,1);
+        converter(one,PyOne);
+        converter(two,PyTwo);
+    }
+    else return NULL;
+    //one = va_arg(temp,int);
+    //two = va_arg(temp,int);
+    //sts = one+two;
+    sts=one+two;
     return Py_BuildValue("i", sts);
 }
 
