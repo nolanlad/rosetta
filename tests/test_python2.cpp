@@ -100,7 +100,7 @@ plus_wrap(PyObject *self, PyObject *args)
 }
 
 PyObject *
-plus_wrap(PyObject *self, PyObject *args)
+cpp_converter(PyObject *self, PyObject *args)
 {
     auto sts = get_return_type(test);
     PyObject * temp;
@@ -173,6 +173,7 @@ auto get_regis(F f)
     return x;
 }
 
+template<class T>
 static PyObject *
 plus_wrap2(PyObject *self, PyObject *args)
 {
@@ -181,7 +182,18 @@ plus_wrap2(PyObject *self, PyObject *args)
     //return plus_wrap(self,args);
 }
 
-auto x_x = get_regis(test);
+template<PyObject * (*f)(PyObject*,PyObject*)>
+static PyObject *
+plus_wrap3(PyObject *self, PyObject *args)
+{
+    //auto xx = get_regis(test);
+    return f(self,args);
+    //return plus_wrap(self,args);
+}
+
+auto cc = get_regis(test);
+
+
 
 static PyObject * (*this_test2)(PyObject *,PyObject *) = &plus_wrap;
 
@@ -190,7 +202,7 @@ static PyObject *SpamError;
 static PyMethodDef SpamMethods[] = {
     {"plus",  plus_wrap, METH_VARARGS,
      "Add."},
-    {"plus2", plus_wrap2 , METH_VARARGS,
+    {"plus2", plus_wrap2<int> , METH_VARARGS,
      "Add."},
 //     {"plus2",  cpp_wrapper(test)::wrapper, METH_VARARGS,
 //     "Add."},
