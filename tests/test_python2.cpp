@@ -99,6 +99,7 @@ plus_wrap(PyObject *self, PyObject *args)
     else return NULL;
 }
 
+template<typename F, F f>
 PyObject *
 cpp_converter(PyObject *self, PyObject *args)
 {
@@ -202,7 +203,7 @@ static PyObject *SpamError;
 static PyMethodDef SpamMethods[] = {
     {"plus",  plus_wrap, METH_VARARGS,
      "Add."},
-    {"plus2", plus_wrap2<int> , METH_VARARGS,
+    {"plus2", cpp_converter<double (*)(int,int),test> , METH_VARARGS,
      "Add."},
 //     {"plus2",  cpp_wrapper(test)::wrapper, METH_VARARGS,
 //     "Add."},
