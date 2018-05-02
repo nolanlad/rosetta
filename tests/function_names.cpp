@@ -25,10 +25,35 @@ PYTHON_MOD(spam3)
 
 #undef PYTHON_MOD
 
+
+
 //PyMODINIT_FUNC initspam3(void) {
 //(void) Py_InitModule("spam3", TestMethods);
 //}
 }
+
+typedef double (*fptr)(int,int);
+
+double test(int n, int m)
+{
+   return n*m;
+}
+
+template<class F>
+fptr test2(F f)
+{
+  return f;
+}
+
+template<class F>
+int def(F f)
+{
+   double (*ff)(int, int) = test2(f);
+   return 7;
+}
+
+int a = def(test);
+
 
 /*
 //make function factory and use it

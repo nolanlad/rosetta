@@ -75,7 +75,7 @@ double test(int n,int m)
 }
 
 template<typename F, F f>
-static
+//static
 PyObject *
 cpp_converter(PyObject *self, PyObject *args)
 {
@@ -99,12 +99,13 @@ cpp_converter(PyObject *self, PyObject *args)
     else return NULL;
 }
 
-template<typename F>
-static PyMethodDef def(F f)
+template <typename ReturnType, typename... Args>
+int def(ReturnType (*fun)(Args... args))
 {
-    PyMethodDef out = {"plus2", cpp_converter<F,f> , METH_VARARGS,
-     "Add."};
-    return out;
+    
+    PyObject * (*th)(PyObject*,PyObject*) = cpp_converter<ReturnType (*)(Args... ),fun>;
+    
+return 6;
 }
 
 
@@ -116,10 +117,13 @@ static PyMethodDef SpamMethods[] = {
 };
 
 
+
+
 PyMODINIT_FUNC
 initspam2(void)
 {
     PyObject *m;
+    //int a = def(test);
 
     m = Py_InitModule("spam2", SpamMethods);
     if (m == NULL)
